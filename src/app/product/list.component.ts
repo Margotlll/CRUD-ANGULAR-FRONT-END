@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../model/product';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-list',
@@ -19,7 +20,10 @@ export class ListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private toast: ToastrService,
-    private activatedRoute: ActivatedRoute,
+    //private activatedRoute: ActivatedRoute,
+    //update con rama storage
+    private storageService: StorageService,
+    private router :Router,
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +66,14 @@ export class ListComponent implements OnInit {
 
       }
     })
+
+  }
+
+
+  //storage update
+  setProduct(product: Product):void{
+    this.storageService.setProduct(product);
+    this.router.navigate(['/update']);
 
   }
 
