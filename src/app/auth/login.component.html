@@ -1,0 +1,35 @@
+<app-menu></app-menu>
+
+<div class="container d-flex justify-content-center">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" routerLink="/login">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/register">Create Account</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="card-body">
+            <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input type="text" name="username" id="username" class="form-control"
+                        [(ngModel)]="username" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" [(ngModel)]="password"
+                       autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-success w-100 mt-2" [disabled]="!f.valid" type="submit">
+                        <i class="fas fa-sign-in-alt"></i> Sing In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

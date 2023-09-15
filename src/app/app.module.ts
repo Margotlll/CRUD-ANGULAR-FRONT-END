@@ -15,7 +15,9 @@ import { MenuComponent } from './menu/menu.component';
 
 //external
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { ToastrModule } from 'ngx-toastr';//notificaciones y mensajes emergentes
+import { ToastrModule } from 'ngx-toastr';
+import { LoginComponent } from './auth/login.component';
+import { RegisterComponent } from './auth/register.component';//notificaciones y mensajes emergentes
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +26,8 @@ import { ToastrModule } from 'ngx-toastr';//notificaciones y mensajes emergentes
     CreateComponent,
     UpdateComponent,
     MenuComponent,
+    LoginComponent,
+    RegisterComponent,
 
   ],
   imports: [
