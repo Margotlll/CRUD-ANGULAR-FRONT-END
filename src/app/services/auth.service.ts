@@ -9,15 +9,16 @@ import { CreateUserDto } from '../model/create-user-dto';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
   authURL = environment.apiResrUrl +'/auth/';
 
-  constructor(private Httpclient: HttpClient)
-  { }
+  constructor(private Httpclient: HttpClient){ }
   public login(dto : LoginUserDto) : Observable<JwtTokenUserDto>{
-    return this.Httpclient.post<JwtTokenUserDto>(this.authURL+'login',dto);
+    return this.Httpclient.post<JwtTokenUserDto>(this.authURL+ 'login' ,dto);
   }
   public register(dto : CreateUserDto) : Observable<any>{
-    return this.Httpclient.post<JwtTokenUserDto>(this.authURL+'create-user',dto);
+    return this.Httpclient.post<any>(this.authURL+'create-user',dto);
   }
 }

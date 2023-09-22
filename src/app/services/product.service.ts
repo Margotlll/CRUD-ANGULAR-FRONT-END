@@ -12,7 +12,6 @@ import { Product } from '../model/product';
 
 export class ProductService {
   productURL = environment.apiResrUrl + '/product';
-  product: Product |undefined;
 
 
   constructor(private httpClient: HttpClient) { }

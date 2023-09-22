@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../model/product';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-list',
@@ -19,7 +20,8 @@ export class ListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private toast: ToastrService,
-    private activatedRoute: ActivatedRoute,
+    private messageService: MessageService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -30,11 +32,11 @@ export class ListComponent implements OnInit {
     this.productService.list().subscribe(data => {
 
       this.products = data;
-      // console.log(this.products);
+      console.log(this.products);
 
     },
       err => {
-        this.toast.error(err.error.message, 'error', { timeOut: 3000, positionClass: 'toast-top-center' });
+        this.toast.error(err.error.message, 'erroreee', { timeOut: 3000, positionClass: 'toast-top-center' });
 
       });
   }
@@ -61,7 +63,12 @@ export class ListComponent implements OnInit {
         Swal.fire('canceled', 'product not deleted', 'error')
 
       }
-    })
+    });
+
+  }
+  sendProduct(product:Product): void{
+    this.messageService.sendMessage(product);
+    this.router.navigate(['/update']);
 
   }
 

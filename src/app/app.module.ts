@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {FormsModule } from '@angular/forms';
 //components
 import { ListComponent } from './product/list.component';
@@ -18,6 +18,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './auth/login.component';
 import { RegisterComponent } from './auth/register.component';//notificaciones y mensajes emergentes
+import { ProductInterceptor } from './interceptors/product.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,9 @@ import { RegisterComponent } from './auth/register.component';//notificaciones y
 
 
   ],
-  providers: [],
+  providers: [
+    {provide : HTTP_INTERCEPTORS, useClass : ProductInterceptor, multi : true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

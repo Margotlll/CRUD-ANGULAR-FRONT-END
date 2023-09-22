@@ -1,24 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/product';
+import { MessageService } from '../services/message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.css']
 })
-export class UpdateComponent implements OnInit{
+export class UpdateComponent implements OnInit, OnDestroy{
 
-  id! : number;
-  name! :string;
-  price!:number;
+  product!: Product;
+
+  subscription: Subscription | undefined;
   constructor(
     private productService: ProductService,
     private toast: ToastrService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private messageService: MessageService,
   ){}
 
   ngOnInit(): void {
@@ -27,8 +29,7 @@ export class UpdateComponent implements OnInit{
   }
 
   onUpdate(): void{
-    const product= new Product(this.name,this.price)
-    this.productService.update(this.id,product).subscribe(
+    this.productService.update(this.product.id,this.product).subscribe(
       data => {
         this.toast.success(data.message,'OK',{timeOut: 3000, positionClass: 'toast-top-center'});
         this.router.navigate(['']);
@@ -42,10 +43,21 @@ export class UpdateComponent implements OnInit{
   }
 
   getProduct(): void{
-    this.id = this.activatedRoute.snapshot.params['id'];
-    this.name= this.activatedRoute.snapshot.params['name'];
-    this.price = this.activatedRoute.snapshot.params['price'];
+    this.subscription = this.messageService.getMessage().subscribe(
+      data => {
+        this.product = data.product;
+        console.log(data.product);
+
+      },
+      err => {
+        console.log(err);
+      }
+    );
 
   }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
 
 }

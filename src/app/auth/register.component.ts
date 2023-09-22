@@ -12,12 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  username! : string;
+  username!: string;
   email!: string;
   password !:string;
   constructor(
     private authService :AuthService,
     private toast :ToastrService,
+    private tokenService: TokenService,
     private router : Router,
 
   ){}
@@ -27,7 +28,10 @@ export class RegisterComponent {
 
   }
   onRegister():void{
-    const dto=new CreateUserDto(this.username,this.email,this.password);
+    const dto=new CreateUserDto(
+      this.username,
+      this.email,
+      this.password);
     this.authService.register(dto).subscribe(
       data => {
         this.toast.success(data.message,'OK',{timeOut: 3000, positionClass: 'toast-top-center'});
@@ -35,9 +39,7 @@ export class RegisterComponent {
       },
       err =>{
         this.toast.error(err.error.message,'Error',{timeOut: 3000, positionClass: 'toast-top-center'});
-        //this.router.navigate(['']);
-
-      }
+        }
     );
 
 

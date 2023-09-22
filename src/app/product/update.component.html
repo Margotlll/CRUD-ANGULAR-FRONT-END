@@ -5,10 +5,10 @@
       <h4 class="text-center"> Update Product</h4>
       <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
         <div class="mb-3">
-          <input type="text" class="form-control" id="name" name="name" placeholder="product name" autocomplete="off" required [(ngModel)]="name">
+          <input type="text" class="form-control" id="name" name="name" placeholder="product name" autocomplete="off" required [(ngModel)]="product.name">
         </div>
         <div class="mb-3">
-          <input type="number" class="form-control" id="price" name="price" placeholder="product price" autocomplete="off" required [(ngModel)]="price">
+          <input type="number" class="form-control" id="price" name="price" placeholder="product price" autocomplete="off" required [(ngModel)]="product.price">
         </div>
         <button class="btn btn-outline-success w-100 mb-3"  [disabled]="!f.valid"> <i class="far fa-edit"></i> Update</button>
         <button class="btn btn-outline-primary w-100" routerLink="/"><i class="fas fa-arrow-alt-circle-left"></i> Back
